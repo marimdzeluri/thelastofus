@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html lang="ka" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE LAST OF US — ქართული ვიკი & ფან-გვერდი</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&family=Creepster&family=Noto+Sans+Georgian:wght@300;400;600;700;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        tlou: {
+                            bg: '#070b08',
+                            card: '#0e1710',
+                            cardHover: '#142217',
+                            border: '#1e3822',
+                            borderBright: '#2e5434',
+                            rust: '#b45309',
+                            rustDark: '#78350f',
+                            amber: '#f59e0b',
+                            amberBright: '#fbbf24',
+                            lime: '#a3e635',
+                            limeDark: '#4d7c0f',
+                            blood: '#881337',
+                            decay: '#121d13'
+                        }
+                    },
+                    fontFamily: {
+                        georgian: ['Noto Sans Georgian', 'sans-serif'],
+                        heading: ['Cinzel', 'Noto Sans Georgian', 'serif'],
+                        creepy: ['Creepster', 'Noto Sans Georgian', 'cursive'],
+                        code: ['Rajdhani', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Noto Sans Georgian', sans-serif;
+            background-color: #070b08;
+            color: #d1d5db;
+            overflow-x: hidden;
+        }
+
+        /* Vignette Dark Screen Edges Effect */
+        .vignette-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            background: radial-gradient(circle at center, transparent 40%, rgba(3, 7, 4, 0.85) 90%);
+            z-index: 2;
+        }
+
+        /* Particle Spore Canvas Layer */
+        #spore-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Animated Creepy Fog Overlay */
+        .fog-container {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            z-index: 2;
+            opacity: 0.25;
+            overflow: hidden;
+        }
+
+        .fog-layer {
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(ellipse at center, rgba(30, 56, 34, 0.4) 0%, rgba(7, 11, 8, 0) 70%),
+                        radial-gradient(circle at 80% 20%, rgba(163, 230, 53, 0.08) 0%, transparent 50%);
+            animation: fogMove 35s linear infinite alternate;
+        }
+
+        .fog-layer-2 {
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(ellipse at 20% 80%, rgba(217, 119, 6, 0.12) 0%, transparent 60%);
+            animation: fogMove2 48s linear infinite alternate;
+        }
+
+        @keyframes fogMove {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(-8%, 5%) rotate(3deg); }
+        }
+
+        @keyframes fogMove2 {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(6%, -4%) scale(1.1); }
+        }
+
+        /* Post-Apocalyptic Moss Cards */
+        .tlou-card {
+            background: rgba(14, 23, 16, 0.88);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(30, 56, 34, 0.7);
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(163, 230, 53, 0.02);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .tlou-card:hover {
+            border-color: rgba(245, 158, 11, 0.7);
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px -5px rgba(245, 158, 11, 0.15), inset 0 0 20px rgba(245, 158, 11, 0.04);
+        }
+
+        /* Glowing Amber & Lime Accent effects */
+        .glow-amber {
+            text-shadow: 0 0 15px rgba(245, 158, 11, 0.7), 0 0 30px rgba(245, 158, 11, 0.3);
+        }
+        .glow-lime {
+            text-shadow: 0 0 15px rgba(163, 230, 53, 0.7), 0 0 30px rgba(163, 230, 53, 0.3);
+        }
+
+        /* Rust & Fungal Border Decoration */
+        .rust-border {
+            position: relative;
+        }
+        .rust-border::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: linear-gradient(135deg, #78350f, #1e3822, #f59e0b, #0e1710);
+            border-radius: 1rem;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        /* Flickering Title Keyframes */
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            41.99% { opacity: 1; }
+            42% { opacity: 0.4; }
+            43% { opacity: 1; }
+            45% { opacity: 0.3; }
+            46% { opacity: 1; }
+            80% { opacity: 0.95; }
+            81% { opacity: 0.5; }
+            82% { opacity: 1; }
+        }
+
+        .flicker-text {
+            animation: flicker 6s infinite;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #070b08;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e3822;
+            border-radius: 4px;
+            border: 1px solid #2e5434;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f59e0b;
+        }
+
+        /* Navigation Tab Active Styling */
+        .nav-btn {
+            position: relative;
+            transition: all 0.25s ease;
+        }
+        .nav-btn.active {
+            color: #f59e0b;
+            background-color: rgba(245, 158, 11, 0.12);
+            border-color: rgba(245, 158, 11, 0.6);
+        }
+        .nav-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 10%;
+            width: 80%;
+            height: 2px;
+            background: #f59e0b;
+            box-shadow: 0 0 10px #f59e0b;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col relative selection:bg-amber-500 selection:text-black">
+
+    <div class="vignette-overlay"></div>
+    <div class="fog-container">
+        <div class="fog-layer"></div>
+        <div class="fog-layer-2"></div>
+    </div>
+    <canvas id="spore-canvas"></canvas>
+
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-tlou-bg/90 border-b border-tlou-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Logo & Infection Warning Header -->
+                <div class="flex items-center space-x-3 cursor-pointer group" onclick="switchTab('home')">
+                    <div class="w-11 h-11 rounded-xl bg-tlou-card border border-tlou-amber/60 flex items-center justify-center text-tlou-amber text-2xl shadow-lg group-hover:border-amber-400 group-hover:scale-105 transition">
+                        <i class="fa-solid fa-biohazard animate-pulse text-amber-500"></i>
+                    </div>
+                    <div>
+                        <span class="font-heading font-black text-xl sm:text-2xl tracking-wider text-amber-500 glow-amber block flicker-text">
+                            THE LAST OF US
+                        </span>
+                        <div class="flex items-center gap-2 -mt-1">
+                            <span class="text-[11px] text-lime-400 font-code font-semibold tracking-widest uppercase">
+                                ქართული ფან ვიკი
+                            </span>
+                            <span class="text-[10px] px-1.5 py-0.2 rounded bg-blood/80 text-red-200 border border-red-600/50 font-code">
+                                ინფექციის დონე: 99.8%
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Global Search Box -->
+                <div class="hidden md:flex items-center space-x-4 flex-1 max-w-md mx-8 relative">
+                    <div class="relative w-full">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
+                        <input type="text" id="globalSearch" oninput="handleSearch(this.value)" placeholder="ძიება (ჯოელი, ელი, კლიკერი, სიეტლი)..." 
+                               class="w-full bg-tlou-card border border-tlou-border rounded-xl py-2 pl-10 pr-4 text-xs text-gray-200 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition placeholder-gray-500">
+                        
+                        <div id="searchResults" class="hidden absolute top-full left-0 right-0 mt-2 bg-tlou-card border border-amber-500/50 rounded-xl shadow-2xl max-h-80 overflow-y-auto z-50 p-2"></div>
+                    </div>
+                </div>
+
+                <!-- Audio & Effect Controls -->
+                <div class="flex items-center space-x-2 sm:space-x-3">
+                    <button id="audioToggle" onclick="toggleAmbientAudio()" title="ფონური ატმოსფერული ხმა" 
+                            class="px-3 py-2 rounded-xl border border-tlou-border bg-tlou-card hover:border-amber-500 text-gray-300 hover:text-amber-400 text-xs font-semibold transition flex items-center gap-2 shadow-md">
+                        <i class="fa-solid fa-volume-xmark text-red-400" id="audioIcon"></i>
+                        <span class="hidden lg:inline">ატმოსფერო</span>
+                    </button>
+
+                    <button onclick="playClickerSound()" title="კლიკერის საშინელი ხმის სინთეზი" 
+                            class="px-3 py-2 rounded-xl border border-lime-500/50 bg-lime-950/40 hover:bg-lime-900/60 text-lime-400 hover:text-lime-300 text-xs font-bold transition flex items-center gap-2 shadow-md hover:scale-105">
+                        <i class="fa-solid fa-skull text-lime-400 animate-bounce"></i>
+                        <span>კლიკერის ხმა</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Search Bar -->
+            <div class="md:hidden pb-3 relative">
+                <input type="text" oninput="handleSearch(this.value)" placeholder="ძიება..." 
+                       class="w-full bg-tlou-card border border-tlou-border rounded-lg py-2 px-3 text-xs text-gray-200 focus:outline-none focus:border-amber-500">
+            </div>
+
+            <nav class="flex overflow-x-auto space-x-1 sm:space-x-3 border-t border-tlou-border/60 py-2 scrollbar-none">
+                <button onclick="switchTab('home')" id="tab-home" class="nav-btn active px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap transition border border-transparent flex items-center gap-2 text-gray-300 hover:text-amber-400">
+                    <i class="fa-solid fa-house"></i> მთავარი
+                </button>
+                <button onclick="switchTab('characters')" id="tab-characters" class="nav-btn px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap transition border border-transparent flex items-center gap-2 text-gray-300 hover:text-amber-400">
+                    <i class="fa-solid fa-users"></i> პერსონაჟები
+                </button>
+                <button onclick="switchTab('story')" id="tab-story" class="nav-btn px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap transition border border-transparent flex items-center gap-2 text-gray-300 hover:text-amber-400">
+                    <i class="fa-solid fa-book-open"></i> ისტორია
+                </button>
+                <button onclick="switchTab('infected')" id="tab-infected" class="nav-btn px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap transition border border-transparent flex items-center gap-2 text-gray-300 hover:text-amber-400">
+                    <i class="fa-solid fa-biohazard"></i> ინფიცირებულები
+                </button>
+                <button onclick="switchTab('factions')" id="tab-factions" class="nav-btn px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap transition border border-transparent flex items-center gap-2 text-gray-300 hover:text-amber-400">
+                    <i class="fa-solid fa-shield-halved"></i> ფრაქციები
+                </button>
+                <button onclick="switchTab('quiz')" id="tab-quiz" class="nav-btn px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap transition border border-transparent flex items-center gap-2 text-gray-300 hover:text-amber-400">
+                    <i class="fa-solid fa-crosshairs"></i> გადარჩენის ქვიზი
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
+
+        <!-- ================= SECTION 1: HOME ================= -->
+        <section id="section-home" class="space-y-12">
+            <!-- Hero Banner -->
+            <div class="relative rounded-2xl overflow-hidden border border-amber-500/40 p-8 sm:p-12 md:p-16 text-center bg-gradient-to-b from-tlou-decay via-tlou-card to-black shadow-2xl rust-border">
+                <div class="absolute inset-0 opacity-15 bg-[radial-gradient(#f59e0b_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none"></div>
+                
+                <div class="relative z-10 max-w-3xl mx-auto space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-lime-950/80 border border-lime-500/50 text-lime-400 text-xs font-bold uppercase tracking-widest shadow-lg">
+                        <i class="fa-solid fa-fire-flame-curved"></i> ციცინათელების დევიზი
+                    </div>
+                    
+                    <h1 class="text-3xl sm:text-5xl md:text-6xl font-heading font-black text-amber-500 glow-amber leading-tight">
+                        "როდესაც სიბნელეში დაიკარგები, ეძებე სინათლე"
+                    </h1>
+                    
+                    <p class="text-gray-300 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                        კეთილი იყოს თქვენი მობრძანება <span class="text-amber-400 font-bold">The Last of Us</span>-ის ყველაზე დეტალურ ქართულ ენციკლოპედიაში. შეისწავლეთ პოსტ-აპოკალიპტური ამერიკის ბნელი ისტორიები, გადარჩენილთა ტრაგიკული პერსონაჟები, კორდიცეფსით ინფიცირებულთა საშიში სახეობები და შეიარაღებული ფრაქციები.
+                    </p>
+
+                    <!-- Quote Generator Box -->
+                    <div class="mt-8 p-6 rounded-xl bg-tlou-bg/90 border border-tlou-border max-w-xl mx-auto shadow-inner rust-border">
+                        <p class="text-xs text-amber-500 font-bold uppercase tracking-widest mb-2 flex items-center justify-center gap-1">
+                            <i class="fa-solid fa-quote-left"></i> დღის ციტატა
+                        </p>
+                        <blockquote id="quoteText" class="italic text-gray-200 text-sm sm:text-base font-medium">
+                            "ყველაფრის შემდეგ რაც გამოვიარეთ... ეს არ შეიძლება იყოს ამაოდ."
+                        </blockquote>
+                        <span id="quoteAuthor" class="block text-right text-xs text-lime-400 font-bold mt-2">— ელი უილიამსი</span>
+                        <button onclick="generateRandomQuote()" class="mt-4 px-4 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/50 text-amber-400 text-xs font-bold transition flex items-center gap-2 mx-auto">
+                            <i class="fa-solid fa-rotate"></i> სხვა ციტატა
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Outbreak Stats Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+                <div class="tlou-card p-5 rounded-2xl text-center border-l-4 border-amber-500">
+                    <span class="block text-2xl sm:text-3xl font-extrabold text-amber-400 font-code">2013</span>
+                    <span class="text-xs text-gray-400 uppercase tracking-wider font-bold">Outbreak Day (ეპიდემია)</span>
+                </div>
+                <div class="tlou-card p-5 rounded-2xl text-center border-l-4 border-lime-500">
+                    <span class="block text-2xl sm:text-3xl font-extrabold text-lime-400 font-code">Naughty Dog</span>
+                    <span class="text-xs text-gray-400 uppercase tracking-wider font-bold">დეველოპერი</span>
+                </div>
+                <div class="tlou-card p-5 rounded-2xl text-center border-l-4 border-amber-500">
+                    <span class="block text-2xl sm:text-3xl font-extrabold text-amber-400 font-code">60+ მილიონი</span>
+                    <span class="text-xs text-gray-400 uppercase tracking-wider font-bold">გაყიდული ეგზემპლარი</span>
+                </div>
+                <div class="tlou-card p-5 rounded-2xl text-center border-l-4 border-lime-500">
+                    <span class="block text-2xl sm:text-3xl font-extrabold text-lime-400 font-code">500+</span>
+                    <span class="text-xs text-gray-400 uppercase tracking-wider font-bold">წლის თამაშის ჯილდო</span>
+                </div>
+            </div>
+
+            <!-- Character of the Day Spotlight -->
+            <div id="characterSpotlight" class="tlou-card p-6 sm:p-8 rounded-2xl border border-amber-500/40 relative overflow-hidden rust-border">
+                <!-- Dynamically rendered Spotlight -->
+            </div>
+
+            <!-- Lore Overview Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="tlou-card p-6 rounded-2xl space-y-4 border-l-4 border-amber-500">
+                    <h3 class="text-xl font-bold text-amber-400 flex items-center gap-3 font-heading">
+                        <i class="fa-solid fa-virus-covid text-amber-500"></i> კორდიცეფსის ეპიდემია (CBI)
+                    </h3>
+                    <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">
+                        2013 წლის 26 სექტემბერს, პარაზიტულმა სოკომ <i>Cordyceps Brain Infection</i> ადამიანთა მასობრივი მუტაცია გამოიწვია. სოკო უტევს ცენტრალურ ნერვულ სისტემას, ართმევს მსხვერპლს გონებას და გარდაქმნის მას აგრესიულ მონსტრად. 20 წლის შემდეგ კაცობრიობის მხოლოდ მცირე ნაწილია გადარჩენილი.
+                    </p>
+                    <button onclick="switchTab('infected')" class="text-xs text-amber-400 hover:text-amber-300 font-bold uppercase tracking-wider flex items-center gap-1">
+                        იხილეთ ინფიცირებულთა კატალოგი <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <div class="tlou-card p-6 rounded-2xl space-y-4 border-l-4 border-lime-500">
+                    <h3 class="text-xl font-bold text-lime-400 flex items-center gap-3 font-heading">
+                        <i class="fa-solid fa-compass text-lime-500"></i> გადარჩენის გზა & იმუნიტეტი
+                    </h3>
+                    <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">
+                        ბოსტონის კარანტინის ზონიდან დაწყებული მოგზაურობა კოლორადოსა და სოლტ ლეიკ სიტიმდე გახდა კაცობრიობის გადარჩენის უკანასკნელი იმედი. 14 წლის ელი აღმოჩნდა ერთადერთი იმუნური ადამიანი, რომლის სხეულშიც სოკომ მუტაცია განიცადა და მას ზიანი ვერ მიაყენა.
+                    </p>
+                    <button onclick="switchTab('story')" class="text-xs text-lime-400 hover:text-lime-300 font-bold uppercase tracking-wider flex items-center gap-1">
+                        წაიკითხეთ მთლიანი ისტორია <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION 2: CHARACTERS ================= -->
+        <section id="section-characters" class="hidden space-y-8">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-tlou-border pb-6">
+                <div>
+                    <h2 class="text-3xl font-heading font-bold text-amber-500">პერსონაჟები</h2>
+                    <p class="text-xs text-gray-400">გაიცანით TLOU Part I & Part II-ის მთავარი გმირები, ბიოგრაფიები და მახასიათებლები</p>
+                </div>
+
+                <!-- Category Filters -->
+                <div class="flex flex-wrap gap-2" id="factionFilterContainer">
+                    <button onclick="filterCharacters('all')" class="filter-btn active-filter px-3 py-1.5 rounded-xl text-xs font-bold border border-amber-500 bg-amber-500/20 text-amber-400">ყველა</button>
+                    <button onclick="filterCharacters('protagonist')" class="filter-btn px-3 py-1.5 rounded-xl text-xs font-bold border border-tlou-border bg-tlou-card text-gray-300 hover:border-amber-500">პროტაგონისტები</button>
+                    <button onclick="filterCharacters('antagonist')" class="filter-btn px-3 py-1.5 rounded-xl text-xs font-bold border border-tlou-border bg-tlou-card text-gray-300 hover:border-amber-500">ანტაგონისტები</button>
+                    <button onclick="filterCharacters('jackson')" class="filter-btn px-3 py-1.5 rounded-xl text-xs font-bold border border-tlou-border bg-tlou-card text-gray-300 hover:border-amber-500">ჯექსონი</button>
+                    <button onclick="filterCharacters('seattle')" class="filter-btn px-3 py-1.5 rounded-xl text-xs font-bold border border-tlou-border bg-tlou-card text-gray-300 hover:border-amber-500">სიეტლი / WLF</button>
+                </div>
+            </div>
+
+            <!-- Characters Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="charactersGrid">
+                <!-- Populated dynamically via JS -->
+            </div>
+        </section>
+
+        <!-- ================= SECTION 3: STORYLINE ================= -->
+        <section id="section-story" class="hidden space-y-10">
+            <div class="border-b border-tlou-border pb-6">
+                <h2 class="text-3xl font-heading font-bold text-amber-500">ისტორია & ქრონოლოგია</h2>
+                <p class="text-xs text-gray-400">The Last of Us Part I, Left Behind DLC და Part II-ის სრული სიუჟეტური მიმოხილვა</p>
+            </div>
+
+            <!-- Interactive Timeline Navigation -->
+            <div class="flex items-center space-x-3 overflow-x-auto pb-4 scrollbar-none">
+                <button onclick="showStoryPart('part1')" id="story-part1-btn" class="px-5 py-2.5 rounded-xl border border-amber-500 bg-amber-500/20 text-amber-400 text-xs font-bold whitespace-nowrap shadow-md">
+                    TLOU PART I (2033)
+                </button>
+                <button onclick="showStoryPart('leftbehind')" id="story-leftbehind-btn" class="px-5 py-2.5 rounded-xl border border-tlou-border bg-tlou-card text-gray-300 hover:border-amber-500 text-xs font-bold whitespace-nowrap">
+                    LEFT BEHIND (DLC)
+                </button>
+                <button onclick="showStoryPart('part2')" id="story-part2-btn" class="px-5 py-2.5 rounded-xl border border-tlou-border bg-tlou-card text-gray-300 hover:border-amber-500 text-xs font-bold whitespace-nowrap">
+                    TLOU PART II (2038)
+                </button>
+            </div>
+
+            <div id="story-content" class="space-y-6">
+                <!-- Dynamically loaded timeline -->
+            </div>
+        </section>
+
+        <!-- ================= SECTION 4: INFECTED ================= -->
+        <section id="section-infected" class="hidden space-y-8">
+            <div class="border-b border-tlou-border pb-6">
+                <h2 class="text-3xl font-heading font-bold text-lime-400 glow-lime">ინფიცირებულთა კატალოგი</h2>
+                <p class="text-xs text-gray-400">კორდიცეფსით ინფიცირების 5 სტადია, ქცევის თავისებურებები და ბრძოლის ტაქტიკა</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="infectedGrid">
+                <!-- Dynamically populated -->
+            </div>
+        </section>
+
+        <!-- ================= SECTION 5: FACTIONS ================= -->
+        <section id="section-factions" class="hidden space-y-8">
+            <div class="border-b border-tlou-border pb-6">
+                <h2 class="text-3xl font-heading font-bold text-amber-500">გადარჩენილთა ფრაქციები</h2>
+                <p class="text-xs text-gray-400">პოსტ-აპოკალიპტური ამერიკის იდეოლოგიები, ტერიტორიები და შეიარაღებული ძალები</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="factionsGrid">
+                <!-- Dynamically populated -->
+            </div>
+        </section>
+
+        <!-- ================= SECTION 6: SURVIVAL QUIZ ================= -->
+        <section id="section-quiz" class="hidden space-y-8">
+            <div class="border-b border-tlou-border pb-6">
+                <h2 class="text-3xl font-heading font-bold text-amber-500">გადარჩენის ქვიზი</h2>
+                <p class="text-xs text-gray-400">რამდენ ხანს გადარჩებოდი TLOU-ს აპოკალიპტურთ სამყაროში?</p>
+            </div>
+
+            <div class="max-w-2xl mx-auto tlou-card p-6 sm:p-8 rounded-2xl border border-amber-500/40 rust-border relative">
+                <div id="quizContainer" class="space-y-6">
+                    <!-- Quiz Progress Bar -->
+                    <div class="flex items-center justify-between text-xs text-gray-400 border-b border-tlou-border pb-3">
+                        <span id="quizQuestionNum" class="font-bold text-amber-400">კითხვა 1 / 5</span>
+                        <span id="quizScoreText" class="font-bold text-lime-400">ქულა: 0</span>
+                    </div>
+
+                    <!-- Question Heading -->
+                    <h3 id="quizQuestionText" class="text-base sm:text-lg font-bold text-gray-100">
+                        იტვირთება კითხვა...
+                    </h3>
+
+                    <!-- Options -->
+                    <div id="quizOptions" class="space-y-3"></div>
+
+                    <!-- Feedback Box -->
+                    <div id="quizFeedback" class="hidden p-4 rounded-xl border text-xs font-medium leading-relaxed"></div>
+
+                    <!-- Next Button -->
+                    <button id="nextQuizBtn" onclick="nextQuestion()" class="hidden w-full py-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-black font-bold uppercase tracking-wider transition shadow-lg">
+                        შემდეგი კითხვა <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+
+                <!-- Final Quiz Results -->
+                <div id="quizResult" class="hidden text-center space-y-6 py-6">
+                    <div class="w-20 h-20 rounded-full bg-amber-500/20 border-2 border-amber-500 flex items-center justify-center mx-auto text-3xl text-amber-400 glow-amber">
+                        <i class="fa-solid fa-award"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-amber-400 font-heading">შედეგები გაანგარიშებულია!</h3>
+                    <p id="quizFinalScore" class="text-sm sm:text-base text-gray-200"></p>
+                    <div id="quizBadge" class="p-4 rounded-xl bg-tlou-bg border border-lime-500/50 inline-block text-lime-400 font-bold text-xs sm:text-sm"></div>
+                    <div>
+                        <button onclick="restartQuiz()" class="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-black font-bold uppercase tracking-wider transition">
+                            თავიდან ცდა <i class="fa-solid fa-rotate-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Detailed Modal View for Characters -->
+    <div id="detailModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
+        <div class="tlou-card max-w-2xl w-full max-h-[90vh] overflow-y-auto rounded-2xl border border-amber-500/50 p-6 sm:p-8 relative shadow-2xl rust-border">
+            <button onclick="closeModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-tlou-bg border border-tlou-border hover:border-amber-500 text-gray-400 hover:text-amber-400 transition flex items-center justify-center">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div id="modalContent" class="space-y-6"></div>
+        </div>
+    </div>
+
+    <footer class="mt-16 border-t border-tlou-border bg-tlou-bg/95 py-8 text-center text-xs text-gray-500 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 space-y-2">
+            <p class="font-heading font-bold text-amber-500 text-sm">THE LAST OF US — GEORGIAN FAN WIKI</p>
+            <p>შექმნილია ქართველი ფანების მიერ. საიტის თემატიკა და პერსონაჟები ეკუთვნის Naughty Dog-ს & Sony Interactive Entertainment-ს.</p>
+            <p class="text-lime-500/80 font-code font-semibold">"ENDURE AND SURVIVE" / "გაუძელი და გადარჩი"</p>
+        </div>
+    </footer>
+
+    <script>
+        /* ================= CANVAS SPORES BACKGROUND ================= */
+        const canvas = document.getElementById('spore-canvas');
+        const ctx = canvas.getContext('2d');
+        let spores = [];
+        let mouseX = -1000;
+        let mouseY = -1000;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        class Spore {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 0.8;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = -Math.random() * 0.6 - 0.15;
+                this.opacity = Math.random() * 0.7 + 0.2;
+                this.color = Math.random() > 0.35 ? '#a3e635' : '#f59e0b';
+                this.pulseSpeed = Math.random() * 0.03 + 0.01;
+                this.angle = Math.random() * Math.PI * 2;
+            }
+            update() {
+                this.angle += this.pulseSpeed;
+                this.x += this.speedX + Math.sin(this.angle) * 0.2;
+                this.y += this.speedY;
+
+                // Mouse interactivity: particle light push away
+                const dx = this.x - mouseX;
+                const dy = this.y - mouseY;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 100) {
+                    const force = (100 - dist) / 100;
+                    this.x += (dx / dist) * force * 2;
+                    this.y += (dy / dist) * force * 2;
+                }
+
+                if (this.y < -10 || this.x < -10 || this.x > canvas.width + 10) {
+                    this.reset();
+                    this.y = canvas.height + 10;
+                }
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = this.opacity * (0.7 + 0.3 * Math.sin(this.angle));
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = this.color;
+                ctx.fill();
+                ctx.globalAlpha = 1.0;
+            }
+        }
+
+        for (let i = 0; i < 75; i++) {
+            spores.push(new Spore());
+        }
+
+        function animateSpores() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            spores.forEach(spore => {
+                spore.update();
+                spore.draw();
+            });
+            requestAnimationFrame(animateSpores);
+        }
+        animateSpores();
+
+        /* ================= WEB AUDIO SYNTHESIZER ================= */
+        let audioCtx = null;
+        let isAudioPlaying = false;
+        let ambientOsc = null;
+        let ambientGain = null;
+        let lfo = null;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function toggleAmbientAudio() {
+            initAudio();
+            const icon = document.getElementById('audioIcon');
+            if (isAudioPlaying) {
+                if (ambientGain) ambientGain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 1);
+                setTimeout(() => {
+                    if (ambientOsc) ambientOsc.stop();
+                }, 1000);
+                isAudioPlaying = false;
+                icon.className = 'fa-solid fa-volume-xmark text-red-400';
+            } else {
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                
+                // Drone ambient synthesizer with eerie LFO frequency modulation
+                ambientOsc = audioCtx.createOscillator();
+                ambientGain = audioCtx.createGain();
+                
+                ambientOsc.type = 'sawtooth';
+                ambientOsc.frequency.setValueAtTime(48, audioCtx.currentTime); // Low pitch C#
+                
+                const filter = audioCtx.createBiquadFilter();
+                filter.type = 'lowpass';
+                filter.frequency.setValueAtTime(140, audioCtx.currentTime);
+
+                // Low Frequency Oscillator for pulsing ambient horror effect
+                lfo = audioCtx.createOscillator();
+                const lfoGain = audioCtx.createGain();
+                lfo.frequency.setValueAtTime(0.3, audioCtx.currentTime); // Slow pulse
+                lfoGain.gain.setValueAtTime(60, audioCtx.currentTime);
+
+                lfo.connect(filter.frequency);
+                lfo.start();
+
+                ambientOsc.connect(filter);
+                filter.connect(ambientGain);
+                ambientGain.connect(audioCtx.destination);
+
+                ambientGain.gain.setValueAtTime(0.001, audioCtx.currentTime);
+                ambientGain.gain.exponentialRampToValueAtTime(0.07, audioCtx.currentTime + 2);
+
+                ambientOsc.start();
+                isAudioPlaying = true;
+                icon.className = 'fa-solid fa-volume-high text-lime-400';
+            }
+        }
+
+        // Clicker Audio Effect Synthesizer (Realistic noise clicks)
+        function playClickerSound() {
+            initAudio();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+
+            const now = audioCtx.currentTime;
+            const clickCount = 12;
+
+            for (let i = 0; i < clickCount; i++) {
+                const startTime = now + (i * 0.06) + (Math.random() * 0.04);
+                
+                // Burst of bandpass filtered noise
+                const bufferSize = audioCtx.sampleRate * 0.035;
+                const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+                const output = buffer.getChannelData(0);
+                for (let j = 0; j < bufferSize; j++) {
+                    output[j] = Math.random() * 2 - 1;
+                }
+
+                const noise = audioCtx.createBufferSource();
+                noise.buffer = buffer;
+
+                const filter = audioCtx.createBiquadFilter();
+                filter.type = 'bandpass';
+                filter.frequency.setValueAtTime(2200 + Math.random() * 1200, startTime);
+                filter.Q.setValueAtTime(18, startTime);
+
+                const gain = audioCtx.createGain();
+                gain.gain.setValueAtTime(0.4, startTime);
+                gain.gain.exponentialRampToValueAtTime(0.005, startTime + 0.03);
+
+                noise.connect(filter);
+                filter.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                noise.start(startTime);
+                noise.stop(startTime + 0.035);
+            }
+        }
+
+        /* ================= DATA & CONTENT ================= */
+        const quotes = [
+            { text: "ყველაფრის შემდეგ რაც გამოვიარეთ... ეს არ შეიძლება იყოს ამაოდ.", author: "ელი უილიამსი" },
+            { text: "როდესაც სიბნელეში დაიკარგები, ეძებე სინათლე.", author: "ციცინათელების დევიზი" },
+            { text: "არ აქვს მნიშვნელობა რა მოხდება, შენ მაინც იპოვი რაღაცას, რისთვისაც ღირს ბრძოლა.", author: "ჯოელ მილერი" },
+            { text: "შენ მოკალი ჩემი მეგობრები... მე მოგეცი შანსი იცოცხლო.", author: "ები ანდერსონი" },
+            { text: "ჩვენ ვართ გადარჩენილები, ჯოელ. ეს ჩვენი საქმეა.", author: "ტეს სერვოპულოსი" },
+            { text: "ჩვენ გვაქვს შესაძლებლობა გავაკეთოთ ის, რაც სწორია.", author: "მარლენი" }
+        ];
+
+        function generateRandomQuote() {
+            const random = quotes[Math.floor(Math.random() * quotes.length)];
+            document.getElementById('quoteText').innerText = `"${random.text}"`;
+            document.getElementById('quoteAuthor').innerText = `— ${random.author}`;
+        }
+
+        // Characters Comprehensive Data
+        const charactersData = [
+            {
+                id: 'joel',
+                name: 'ჯოელ მილერი',
+                englishName: 'Joel Miller',
+                category: 'protagonist',
+                faction: 'jackson',
+                factionName: 'ჯექსონის დასახლება / ყოფილი კონტრაბანდისტი',
+                status: 'გარდაცვლილი (2038)',
+                icon: 'fa-user-ninja',
+                quote: 'არ აქვს მნიშვნელობა რა მოხდება, შენ მაინც იპოვი რაღაცას, რისთვისაც ღირს ბრძოლა.',
+                bio: 'ტეხასელი მამა, რომელმაც 2013 წელს ეპიდემიის პირველივე დღეს დაკარგა ქალიშვილი სარა. 20 წლის შემდეგ ბოსტონის კარანტინის ზონაში მუშაობს სასტიკ კონტრაბანდისტად. იღებს დავალებას გადაიყვანოს 14 წლის ელი ციცინათელებთან, რაც იზრდება მამაშვილურ სიყვარულსა და თავგანწირვაში.',
+                events: 'სარის დაღუპვა; ტესთან პარტნიორობა ბოსტონში; ელისთან მოგზაურობა ამერიკაში; სოლტ ლეიკ სიტის საავადმყოფოში ელის გადარჩენა; ჯექსონში დასახლება.',
+                relationships: 'ელი (შვილობილი), ტომი (ძმა), სარა (ქალიშვილი), ტესი (პარტნიორი).',
+                stats: { hp: 95, combat: 92, leadership: 85, stealth: 88 },
+                weapon: 'Custom Revolver, Pump Shotgun, El Diablo, Machete'
+            },
+            {
+                id: 'ellie',
+                name: 'ელი უილიამსი',
+                englishName: 'Ellie Williams',
+                category: 'protagonist',
+                faction: 'jackson',
+                factionName: 'ჯექსონი / ყოფილი ციცინათელები',
+                status: 'ცოცხალი',
+                icon: 'fa-person-rays',
+                quote: 'ყველაფრის შემდეგ რაც გამოვიარეთ... ეს არ შეიძლება იყოს ამაოდ.',
+                bio: 'ერთადერთი ცნობილი ადამიანი მსოფლიოში, რომელიც სრულიად იმუნურია კორდიცეფსის სოკოვანი ინფექციის მიმართ. ობოლი, გაიზარდა FEDRA-ს სამხედრო სკოლაში. Part II-ში იგი მიდის შურისძიების ბნელ გზაზე ჯოელის ტრაგიკული დაღუპვის შემდეგ.',
+                events: 'რაილისთან ინფიცირება; ჯოელთან მოგზაურობა; დევიდის კანიბალებთან გადარჩენა; სიეტლის 3 დღიანი შურისძიება; სანტა ბარბარაში ებისთან შეტაკება.',
+                relationships: 'ჯოელ მილერი (მამინაცვალი), დინა (შეყვარებული), რაილი (პირველი სიყვარული).',
+                stats: { hp: 88, combat: 90, leadership: 78, stealth: 96 },
+                weapon: 'Switchblade, Hunting Rifle, Bow & Explosive Arrows'
+            },
+            {
+                id: 'abby',
+                name: 'ები ანდერსონი',
+                englishName: 'Abby Anderson',
+                category: 'antagonist',
+                faction: 'seattle',
+                factionName: 'WLF (ვაშინგტონის გათავისუფლების ფრონტი)',
+                status: 'ცოცხალი',
+                icon: 'fa-shield-cat',
+                quote: 'შენ მოკალი ჩემი მეგობრები... მე მოგეცი შანსი იცოცხლო.',
+                bio: 'ციცინათელების მთავარი ქირურგის, ჯერი ანდერსონის ქალიშვილი. მამის გარდაცვალების შემდეგ შეუერთდა WLF-ს და გახდა მათი საუკეთესო მებრძოლი. წლების განმავლობაში ეძებდა ჯოელს შურისძიებისთვის, თუმცა მოგვიანებით იპოვა გამოსყიდვა ლევის დაცვით.',
+                events: 'მამის დაკარგვა საავადმყოფოში; ჯოელზე შურისძიება ჯექსონში; ლევისა და იარას გადარჩენა; ვირთხების მეფესთან ბრძოლა; სანტა ბარბარიდან გაქცევა.',
+                relationships: 'ჯერი ანდერსონი (მამა), ოუენი (ყოფილი შეყვარებული), ლევი (თანამგზავრი).',
+                stats: { hp: 98, combat: 96, leadership: 84, stealth: 80 },
+                weapon: 'Military Pistol, Crossbow, Flamethrower, Pipe Bombs'
+            },
+            {
+                id: 'tommy',
+                name: 'ტომი მილერი',
+                englishName: 'Tommy Miller',
+                faction: 'jackson',
+                category: 'protagonist',
+                factionName: 'ჯექსონის დასახლება (ლიდერი)',
+                status: 'ცოცხალი',
+                icon: 'fa-crosshairs',
+                quote: 'ეს ქალაქი არის ყველაფერი, რაც ჩვენ შევქმენით.',
+                bio: 'ჯოელის უმცროსი ძმა. ეპიდემიის დასაწყისში ჯოელთან ერთად გადარჩა, მოგვიანებით იყო ციცინათელების წევრი. მეუღლე მარიასთან ერთად დააარსა უსაფრთხო საზოგადოება ჯექსონში. პროფესიონალი სნაიპერი.',
+                events: 'Outbreak Day; ციცინათელების მიტოვება; ჯექსონის ჰიდროელექტროსადგურის აღდგენა; სიეტლში სნაიპერული ნადირობა WLF-ზე.',
+                relationships: 'ჯოელი (ძმა), მარია (მეუღლე), ელი (ძმისშვილი).',
+                stats: { hp: 90, combat: 94, leadership: 90, stealth: 85 },
+                weapon: 'Custom Sniper Rifle, Semi-auto Pistol'
+            },
+            {
+                id: 'tess',
+                name: 'ტეს სერვოპულოსი',
+                englishName: 'Tess Servopoulos',
+                category: 'protagonist',
+                faction: 'boston',
+                factionName: 'ბოსტონის კონტრაბანდისტები',
+                status: 'გარდაცვლილი (2033)',
+                icon: 'fa-skull-crossbones',
+                quote: 'ჩვენ ვართ გადარჩენილები, ჯოელ. ეს ჩვენი საქმეა.',
+                bio: 'ჯოელის პარტნიორი და უახლოესი მოკავშირე ბოსტონის კარანტინის ზონაში. ცნობილი თავისი ცივი გონებითა და ავტორიტეტით შავ ბაზარზე. თავი გაწირა FEDRA-ს ჯარისკაცებთან ბრძოლაში, რათა ჯოელსა და ელის გაქცევის დრო ჰქონოდათ.',
+                events: 'რობერტის ლიკვიდაცია; მარლენისგან ელის მიღება; ბოსტონის კაპიტოლიუმში დაინფიცირება და გმირული თავგანწირვა.',
+                relationships: 'ჯოელი (საბრძოლო პარტნიორი).',
+                stats: { hp: 82, combat: 86, leadership: 88, stealth: 84 },
+                weapon: '9mm Handgun, Semi-auto Rifle'
+            },
+            {
+                id: 'marlene',
+                name: 'მარლენი',
+                englishName: 'Marlene',
+                category: 'antagonist',
+                faction: 'fireflies',
+                factionName: 'ციცინათელები (ლიდერი)',
+                status: 'გარდაცვლილი (2033)',
+                icon: 'fa-fire-flame-curved',
+                quote: 'არ არსებობს სხვა გზა. ეს არის ვაქცინის ერთადერთი შანსი.',
+                bio: 'ციცინათელების მეთაური ("სიბნელის დედოფალი"). ელის გარდაცვლილი დედის, ანას უახლოესი მეგობარი. მიუხედავად ელისადმი სიყვარულისა, მიიღო გადაწყვეტილება ჩაეტარებინა ოპერაცია ვაქცინისთვის, რაც ელის სიცოცხლეს შეიწირავდა.',
+                events: 'ციცინათელების დაარსება; ელის მფარველობა; სოლტ ლეიკ სიტიში ოპერაციის ბრძანება; ჯოელის მიერ მოკვლა.',
+                relationships: 'ანა (ელის დედა), ელი (მფარველობაში მყოფი).',
+                stats: { hp: 80, combat: 85, leadership: 95, stealth: 80 },
+                weapon: 'Assault Rifle, Revolver'
+            },
+            {
+                id: 'lev',
+                name: 'ლევი',
+                englishName: 'Lev',
+                category: 'protagonist',
+                faction: 'seattle',
+                factionName: 'ყოფილი სერაფიტი / ების მოკავშირე',
+                status: 'ცოცხალი',
+                icon: 'fa-bow-arrow',
+                quote: 'ჩემი რწმენა ჩემშია, და არა მათ წესებში.',
+                bio: 'ახალგაზრდა სერაფიტი (სკარი), რომელიც გაიქცა თავისი კულტიდან, რადგან არ დაემორჩილა მათ ტრადიციულ წესებს. ებისთან შეხვედრის შემდეგ გახდა მისი განუყრელი მეგობარი და დამცველი.',
+                events: 'სერაფიტების კუნძულიდან გაქცევა; ების გადარჩენა; სანტა ბარბარაში ტყვეობა და გათავისუფლება.',
+                relationships: 'იარა (და), ები (მფარველი).',
+                stats: { hp: 78, combat: 82, leadership: 70, stealth: 98 },
+                weapon: 'Traditional Seraphite Bow'
+            }
+        ];
+
+        // Infected Data
+        const infectedData = [
+            {
+                id: 'runners',
+                name: 'მორბენლები (Runners)',
+                stage: 'ეტაპი 1 (2 დღიდან 2 კვირამდე)',
+                danger: 2,
+                senses: 'მხედველობა შენარჩუნებულია, მაღალი სიჩქარე',
+                audio: false,
+                desc: 'ინფექციის პირველი სტადია. მსხვერპლს ჯერ კიდევ აქვს ადამიანის იერი, თუმცა კარგავს აზროვნებას, ხდება აგრესიული და დიდი სიჩქარით ესხმის თავს მსხვერპლს.',
+                tactics: 'მარტივია მათი ჩუმად განადგურება (Stealth Kill) ან ცეცხლსასროლი იარაღის გამოყენება.'
+            },
+            {
+                id: 'stalkers',
+                name: 'მეთვალყურეები (Stalkers)',
+                stage: 'ეტაპი 2 (2 კვირიდან 1 წლამდე)',
+                danger: 3,
+                senses: 'ნაწილობრივი ექოლოკაცია, დამალვის უნარი',
+                audio: false,
+                desc: 'მეორე სტადია. სოკო იწყებს სახეზე ამოსვლას. ეს ინფიცირებულები არიან ძალიან ეშმაკები — იმალებიან სიბნელეში და მოულოდნელად ესხმიან თავს მსხვერპლს ზურგიდან.',
+                tactics: 'ყურადღებით აკონტროლეთ კუთხეები, გამოიყენეთ ფანარი და შოტგანი.'
+            },
+            {
+                id: 'clickers',
+                name: 'კლიკერები / მწკაწკაწებლები (Clickers)',
+                stage: 'ეტაპი 3 (1 წლის შემდეგ)',
+                danger: 4,
+                senses: 'ბრმა, სრული ექოლოკაცია (წკაწკაწის ხმები)',
+                audio: true,
+                desc: 'ყველაზე ცნობილი და საშიში ინფიცირებული. სოკომ სრულად დაფარა მათი თვალები, რის გამოც სრულიად ბრმები არიან, თუმცა ნავიგაციას ახდენენ საზარელი წკაწკაწის ხმებით.',
+                tactics: 'არავითარ შემთხვევაში არ იმოძრაოთ სწრაფად! მოკალით დანით (Shiv) ან ესროლეთ თავში.'
+            },
+            {
+                id: 'bloaters',
+                name: 'ბლოატერები / გამბერილები (Bloaters)',
+                stage: 'ეტაპი 4 (რამდენიმე წლის შემდეგ)',
+                danger: 5,
+                senses: 'ბრმა, წარმოქმნის სოკოვან ჯავშანს',
+                audio: false,
+                desc: 'გიგანტური, ნელი და უკიდურესად გამძლე მონსტრები. მათი სხეული დაფარულია სქელი სოკოვანი ჯავშნით. ესვრიან მსხვერპლს მჟავურ სპორების ბომბებს.',
+                tactics: 'გამოიყენეთ ცეცხლი (მოლოტოვი, ცეცხლმტყორცნი), რათა დაწვათ მათი ჯავშანი.'
+            },
+            {
+                id: 'shamblers',
+                name: 'შამბლერები (Shamblers)',
+                stage: 'ეტაპი 4 ვარიანტი (წყლიან გარემოში)',
+                danger: 4,
+                senses: 'ბრმა, მჟავური გაზის გამოყოფა',
+                audio: false,
+                desc: 'განვითარდა ნესტიან და წყლიან გარემოში (სიეტლში). მიახლოებისას სკდება და გამოყოფს მომწამვლელ მჟავურ გაზის ღრუბელს.',
+                tactics: 'დაიკავეთ დისტანცია, ესროლეთ შორიდან.'
+            },
+            {
+                id: 'ratking',
+                name: 'ვირთხების მეფე (The Rat King)',
+                stage: 'აპექს ინფექცია (25 წლის მუტაცია)',
+                danger: 5,
+                senses: 'აბსოლუტური ძალა, მრავალი სხეულის შერწყმა',
+                audio: false,
+                desc: 'სიეტლის საავადმყოფოს სარდაფში (ნულოვან ზონაში) დაბადებული საშინელება. ეპიდემიის პირველივე პაციენტებისგან შემდგარი გიგანტური ბიოლოგიური მასა.',
+                tactics: 'გამოიყენეთ მთელი არსებული საბრძოლო მასალა, ცეცხლი და მუდმივად იმოძრავეთ!'
+            }
+        ];
+
+        // Factions Data
+        const factionsData = [
+            {
+                name: 'ციცინათელები (Fireflies)',
+                motto: 'When you\'re lost in the darkness, look for the light',
+                leader: 'მარლენი (Marlene)',
+                status: 'დაშლილი / აღდგენადი (სანტა ბარბარა)',
+                symbol: 'fa-fire-flame-curved',
+                desc: 'რევოლუციური მილიცია, რომელიც იბრძვის FEDRA-ს სამხედრო დიქტატურის წინააღმდეგ და ცდილობს დემოკრატიის აღდგენასა და ვაქცინის შექმნას.'
+            },
+            {
+                name: 'FEDRA (ფედრა)',
+                motto: 'Order, Safety, Control',
+                leader: 'სამხედრო კომანდორები',
+                status: 'აქტიური ზოგ კარანტინის ზონაში',
+                symbol: 'fa-building-shield',
+                desc: 'აშშ-ის კატასტროფებზე რეაგირების ფედერალური სააგენტო. ეპიდემიის შემდეგ ხელში ჩაიგდო აბსოლუტური სამხედრო ძალაუფლება კარანტინის ზონებში.'
+            },
+            {
+                name: 'WLF (ვაშინგტონის გათავისუფლების ფრონტი)',
+                motto: 'May your survival be long / May your death be swift',
+                leader: 'აიზაკ დიქსონი (Isaac Dixon)',
+                status: 'მძიმე დანაკარგები',
+                symbol: 'fa-dog',
+                desc: 'სიეტლში დაარსებული კარგად გაწვრთნილი პარამილიტარული დაჯგუფება ("მგლები"), რომელმაც დაამხო FEDRA და აწარმოებს სისხლისღვრელ ომს სერაფიტებთან.'
+            },
+            {
+                name: 'სერაფიტები / სკარები (Seraphites)',
+                motto: 'Feel her love',
+                leader: 'წინასწარმეტყველი ქალი (Deceased)',
+                status: 'აქტიური',
+                symbol: 'fa-hands-praying',
+                desc: 'რელიგიური კულტი სიეტლის კუნძულზე. უარს ამბობენ ძველ ტექნოლოგიებზე, იყენებენ მშვილდ-ისრებს და ექოლოკაციურ სტვენას ბრძოლაში.'
+            },
+            {
+                name: 'რეტლერები (Rattlers)',
+                motto: 'No match for us',
+                leader: 'სანტა ბარბარას მეთაურები',
+                status: 'განადგურებული (ელის მიერ)',
+                symbol: 'fa-chain',
+                desc: 'სანტა ბარბარაში მოქმედი სასტიკი მონათმფლობელური დაჯგუფება, რომელიც იჭერს გადარჩენილებს და იყენებს მათ მონურ შრომაში.'
+            }
+        ];
+
+        // Quiz Questions Data
+        const quizQuestions = [
+            {
+                q: "შენ ხარ მიტოვებულ სუპერმარკეტში და გესმის კლიკერის წკაწკაწის ხმა კუთხეში. ხელში გაქვს მხოლოდ დანა და აგური. რას იზამ?",
+                options: [
+                    "ვისვრი აგურს საპირისპირო მხარეს ყურადღების გადასატანად და ჩუმად წავალ",
+                    "გავქანდები და აგურს თავში ჩავარტყამ",
+                    "ჩუმად მივეპარები ზურგიდან და დანას ყელში ჩავარტყამ",
+                    "ადგილზე გავიყინები და იმედი მექნება რომ ვერ შემამჩნევს"
+                ],
+                correct: 0,
+                info: "კლიკერები ბრმები არიან, თუმცა ექოლოკაცია აქვთ. ხმის შორს გადატანა ყველაზე უსაფრთხო ტაქტიკაა."
+            },
+            {
+                q: "შენს საბრძოლო ჯგუფს საკვები გამოელიათ. პოულობთ უცნობ გადარჩენილს, რომელსაც აქვს ზურგჩანთა. იგი დახმარებას ითხოვს. რას აკეთებ?",
+                options: [
+                    "ვართმევთ ზურგჩანთას და ვტოვებთ, რადგან გადარჩენა პირველ ადგილზეა",
+                    "ვეხმარებით და ვუყოფთ თავშესაფარს სანდოობის შემოწმების შემდეგ",
+                    "ვკლავთ ყოველგვარი რისკის თავიდან ასაცილებლად",
+                    "ვუვლით გვერდს და არ ვერევით"
+                ],
+                correct: 1,
+                info: "მოკავშირეების შეძენა ხშირად გადარჩენის ერთადერთი გზაა TLOU-ს სამყაროში."
+            },
+            {
+                q: "შენს ახლო მეგობარს ხელზე ეტყობა კორდიცეფსის ნაკბენი. იგი გეხვეწება, რომ არ მოკლა. შენი გადაწყვეტილება?",
+                options: [
+                    "მივმართავ რადიკალურ ზომას — ვკლავ სანამ გარდაიქმნება",
+                    "ვკეტავ ცალკე ოთახში და ველოდები 24 საათი სიმპტომების გამოვლენას",
+                    "იმედი მაქვს რომ იმუნურია და არაფერს ვაკეთებ",
+                    "ვტოვებ იარაღს და მივდივარ"
+                ],
+                correct: 1,
+                info: "იზოლაცია საშუალებას გაძლევს გადაამოწმო იმუნიტეტი ან მიიღო ზომები."
+            },
+            {
+                q: "ღამით შენს ბანაკს გარს აკრავს მეთვალყურეთა (Stalkers) ხროვა. შენი საუკეთესო პოზიცია?",
+                options: [
+                    "ზურგით კედელთან დადგომა, ფანრის ჩართვა და შოტგანის მომზადება",
+                    "სიბნელეში გაქცევა ტყისკენ",
+                    "დამალვა კარადის შიგნით",
+                    "ცეცხლის დანთება შუა ოთახში"
+                ],
+                correct: 0,
+                info: "მეთვალყურეები ზურგიდან ესხმიან თავს. კედელთან დგომა გამორიცხავს მოულოდნელობას."
+            },
+            {
+                q: "რომელ ფრაქციას შეუერთდებოდი პოსტ-აპოკალიპტურ ამერიკაში?",
+                options: [
+                    "ჯექსონის მშვიდობიან საზოგადოებას",
+                    "ციცინათელებს (ვაქცინის შექმნისთვის)",
+                    "WLF-ს (სამხედრო დისციპლინისა და რესურსებისთვის)",
+                    "დავრჩებოდი მარტოხელა გადარჩენილად"
+                ],
+                correct: 0,
+                info: "ჯექსონი არის ყველაზე სტაბილური და ჰუმანური საზოგადოება."
+            }
+        ];
+
+        /* ================= UI RENDER FUNCTIONS ================= */
+
+        // Spotlight Render
+        function renderSpotlight() {
+            const spotlightContainer = document.getElementById('characterSpotlight');
+            const randomChar = charactersData[Math.floor(Math.random() * charactersData.length)];
+            
+            spotlightContainer.innerHTML = `
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div class="space-y-3 max-w-xl">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-500/50 text-amber-400 text-xs font-bold uppercase tracking-widest">
+                            <i class="fa-solid fa-star"></i> დღის პერსონაჟი
+                        </div>
+                        <h3 class="text-2xl sm:text-3xl font-heading font-black text-amber-400">${randomChar.name}</h3>
+                        <p class="text-xs text-emerald-400 font-semibold">${randomChar.factionName}</p>
+                        <blockquote class="italic text-xs text-gray-300 border-l-2 border-amber-500 pl-3">"${randomChar.quote}"</blockquote>
+                        <p class="text-xs text-gray-300 line-clamp-2">${randomChar.bio}</p>
+                    </div>
+                    <div>
+                        <button onclick="openCharacterModal('${randomChar.id}')" class="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-black font-bold uppercase tracking-wider text-xs transition shadow-lg flex items-center gap-2 whitespace-nowrap">
+                            სრული პროფილი <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Render Characters
+        function renderCharacters(filter = 'all') {
+            const grid = document.getElementById('charactersGrid');
+            grid.innerHTML = '';
+
+            let filtered = charactersData;
+            if (filter !== 'all') {
+                filtered = charactersData.filter(c => c.category === filter || c.faction === filter);
+            }
+
+            filtered.forEach(c => {
+                const card = document.createElement('div');
+                card.className = 'tlou-card p-6 rounded-2xl flex flex-col justify-between cursor-pointer group';
+                card.onclick = () => openCharacterModal(c.id);
+
+                card.innerHTML = `
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/40 flex items-center justify-center text-amber-400 text-xl group-hover:scale-110 transition">
+                                <i class="fa-solid ${c.icon}"></i>
+                            </div>
+                            <span class="text-[10px] px-2.5 py-1 rounded-full bg-tlou-bg border border-tlou-border text-gray-400 font-bold">
+                                ${c.status}
+                            </span>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-amber-400 font-heading group-hover:text-amber-300 transition">${c.name}</h3>
+                            <span class="text-xs text-lime-400 font-medium block mt-0.5">${c.factionName}</span>
+                        </div>
+                        <p class="text-xs text-gray-300 line-clamp-3 leading-relaxed">${c.bio}</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-tlou-border/60 flex items-center justify-between text-xs font-bold text-amber-400">
+                        <span>დეტალური პროფილი</span>
+                        <i class="fa-solid fa-chevron-right group-hover:translate-x-1 transition"></i>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Character Modal View
+        function openCharacterModal(id) {
+            const c = charactersData.find(item => item.id === id);
+            if (!c) return;
+
+            const content = document.getElementById('modalContent');
+            content.innerHTML = `
+                <div class="flex items-center space-x-4 border-b border-tlou-border pb-4">
+                    <div class="w-16 h-16 rounded-2xl bg-amber-500/20 border border-amber-500 flex items-center justify-center text-amber-400 text-3xl">
+                        <i class="fa-solid ${c.icon}"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-amber-400 font-heading">${c.name}</h2>
+                        <span class="text-xs text-gray-400 block">${c.englishName} • ${c.factionName}</span>
+                        <span class="inline-block mt-1 text-[10px] px-2.5 py-0.5 rounded-full bg-blood/80 border border-red-500/50 text-red-200 font-bold">
+                            ${c.status}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="space-y-5">
+                    <blockquote class="p-3 rounded-xl bg-tlou-bg border-l-4 border-amber-500 italic text-xs sm:text-sm text-gray-200">
+                        "${c.quote}"
+                    </blockquote>
+
+                    <div>
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-amber-500 mb-1">ბიოგრაფია & ისტორია</h4>
+                        <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">${c.bio}</p>
+                    </div>
+
+                    <div>
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-lime-400 mb-1">მთავარი მოვლენები</h4>
+                        <p class="text-xs text-gray-300 leading-relaxed">${c.events}</p>
+                    </div>
+
+                    <!-- Character Stats Bars -->
+                    <div>
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-amber-500 mb-3">საბრძოლო მახასიათებლები</h4>
+                        <div class="space-y-2 text-xs">
+                            <div>
+                                <div class="flex justify-between text-gray-300 mb-1">
+                                    <span>სიცოცხლისუნარიანობა</span>
+                                    <span class="text-amber-400 font-bold">${c.stats.hp}%</span>
+                                </div>
+                                <div class="w-full h-2 bg-tlou-bg rounded-full overflow-hidden border border-tlou-border">
+                                    <div class="h-full bg-amber-500 rounded-full" style="width: ${c.stats.hp}%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-gray-300 mb-1">
+                                    <span>ბრძოლის უნარი</span>
+                                    <span class="text-lime-400 font-bold">${c.stats.combat}%</span>
+                                </div>
+                                <div class="w-full h-2 bg-tlou-bg rounded-full overflow-hidden border border-tlou-border">
+                                    <div class="h-full bg-lime-500 rounded-full" style="width: ${c.stats.combat}%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-gray-300 mb-1">
+                                    <span>სტელსი & ჩუმი გადაადგილება</span>
+                                    <span class="text-amber-400 font-bold">${c.stats.stealth}%</span>
+                                </div>
+                                <div class="w-full h-2 bg-tlou-bg rounded-full overflow-hidden border border-tlou-border">
+                                    <div class="h-full bg-amber-500 rounded-full" style="width: ${c.stats.stealth}%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-3 rounded-xl bg-tlou-bg border border-tlou-border text-xs">
+                        <span class="text-amber-400 font-bold">ძირითადი იარაღი:</span> <span class="text-gray-300">${c.weapon}</span>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('detailModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('detailModal').classList.add('hidden');
+        }
+
+        // Render Infected Bestiary
+        function renderInfected() {
+            const grid = document.getElementById('infectedGrid');
+            grid.innerHTML = '';
+
+            infectedData.forEach(inf => {
+                const card = document.createElement('div');
+                card.className = 'tlou-card p-6 rounded-2xl space-y-4 border-l-4 border-lime-500 relative overflow-hidden';
+                
+                let starsHTML = '';
+                for (let i = 0; i < 5; i++) {
+                    starsHTML += `<i class="fa-solid fa-star ${i < inf.danger ? 'text-amber-400' : 'text-gray-700'} text-xs"></i>`;
+                }
+
+                card.innerHTML = `
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <span class="text-[10px] uppercase tracking-widest text-lime-400 font-extrabold block font-code">${inf.stage}</span>
+                            <h3 class="text-lg font-bold text-gray-100 font-heading">${inf.name}</h3>
+                        </div>
+                        <div class="flex gap-0.5">${starsHTML}</div>
+                    </div>
+
+                    <p class="text-xs text-gray-300 leading-relaxed">${inf.desc}</p>
+
+                    <div class="p-3 rounded-xl bg-tlou-bg/80 border border-tlou-border space-y-2">
+                        <div class="text-xs text-amber-400 font-semibold">
+                            <i class="fa-solid fa-eye-slash mr-1"></i> გრძნობები: <span class="text-gray-300 font-normal">${inf.senses}</span>
+                        </div>
+                        <div class="text-xs text-lime-400 font-semibold">
+                            <i class="fa-solid fa-shield-cat mr-1"></i> ტაქტიკა: <span class="text-gray-300 font-normal">${inf.tactics}</span>
+                        </div>
+                    </div>
+
+                    ${inf.audio ? `
+                        <button onclick="playClickerSound()" class="w-full py-2 rounded-xl bg-lime-950/80 hover:bg-lime-900 border border-lime-500/50 text-lime-400 text-xs font-bold transition flex items-center justify-center gap-2 shadow-md">
+                            <i class="fa-solid fa-volume-high"></i> კლიკერის ხმის მოსმენა
+                        </button>
+                    ` : ''}
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Render Factions
+        function renderFactions() {
+            const grid = document.getElementById('factionsGrid');
+            grid.innerHTML = '';
+
+            factionsData.forEach(f => {
+                const card = document.createElement('div');
+                card.className = 'tlou-card p-6 rounded-2xl space-y-4';
+                card.innerHTML = `
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-xl bg-tlou-bg border border-amber-500/40 flex items-center justify-center text-amber-400 text-2xl">
+                            <i class="fa-solid ${f.symbol}"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-amber-400 font-heading">${f.name}</h3>
+                            <span class="text-xs text-gray-400 italic block">"${f.motto}"</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-300 leading-relaxed">${f.desc}</p>
+                    <div class="grid grid-cols-2 gap-2 text-xs border-t border-tlou-border pt-3">
+                        <div><span class="text-gray-400">ლიდერი:</span> <span class="text-amber-400 font-semibold block">${f.leader}</span></div>
+                        <div><span class="text-gray-400">სტატუსი:</span> <span class="text-lime-400 font-semibold block">${f.status}</span></div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function showStoryPart(part) {
+            const container = document.getElementById('story-content');
+            
+            ['part1', 'leftbehind', 'part2'].forEach(p => {
+                const btn = document.getElementById(`story-${p}-btn`);
+                if (p === part) {
+                    btn.className = "px-5 py-2.5 rounded-xl border border-amber-500 bg-amber-500/20 text-amber-400 text-xs font-bold whitespace-nowrap shadow-md";
+                } else {
+                    btn.className = "px-5 py-2.5 rounded-xl border border-tlou-border bg-tlou-card text-gray-300 hover:border-amber-500 text-xs font-bold whitespace-nowrap";
+                }
+            });
+
+            if (part === 'part1') {
+                container.innerHTML = `
+                    <div class="tlou-card p-6 sm:p-8 rounded-2xl space-y-6">
+                        <h3 class="text-2xl font-bold text-amber-400 font-heading border-b border-tlou-border pb-3">The Last of Us Part I (2033)</h3>
+                        <div class="space-y-6 text-xs sm:text-sm text-gray-300">
+                            <div>
+                                <h4 class="text-sm font-bold text-lime-400 mb-1"><i class="fa-solid fa-sun text-amber-500"></i> ზაფხული: ბოსტონი & პიტსბურგი</h4>
+                                <p class="leading-relaxed">ჯოელი და ტესი იღებენ მარლენის დავალებას - გაიყვანონ 14 წლის ელი კარანტინის ზონიდან. ტესის დაღუპვის შემდეგ ჯოელი მარტო აგრძელებს მოგზაურობას ელისთან ერთად. პიტსბურგში მონადირეთა ჩასაფრების შემდეგ ისინი ხვდებიან ძმებს — ჰენრისა და სემს.</p>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-lime-400 mb-1"><i class="fa-solid fa-leaf text-amber-700"></i> შემოდგომა: ვაიომინგი & კოლორადო</h4>
+                                <p class="leading-relaxed">ჯოელი იპოვის ძმას, ტომის, ჯექსონში. თავდაპირველად ჯოელს სურს ელის ტომისთვის გადაბარება, თუმცა ელისთან საუბრის შემდეგ ხვდება, რომ ვერ მიატოვებს მას. კოლორადოს უნივერსიტეტში ჯოელი მძიმედ იჭრება.</p>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-lime-400 mb-1"><i class="fa-solid fa-snowflake text-blue-300"></i> ზამთარი: ლეიკსაიდი</h4>
+                                <p class="leading-relaxed">ელი უვლის დაჭრილ ჯოელს. იგი ხვდება კანიბალების ჯგუფს, რომელსაც დევიდი ხელმძღვანელობს. ელი ტყვედ ჩავარდება, თუმცა ახერხებს დევიდის მოკვლას, რის შემდეგაც მას გადაარჩენს გამოჯანმრთელებული ჯოელი.</p>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-lime-400 mb-1"><i class="fa-solid fa-seedling text-lime-400"></i> გაზაფხული: სოლტ ლეიკ სიტი</h4>
+                                <p class="leading-relaxed">ციცინათელების საავადმყოფოში ჯოელი იგებს, რომ ვაქცინის შესაქმნელად ელი უნდა გარდაიცვალოს. ჯოელი იღებს უმძიმეს გადაწყვეტილებას — კლავს ციცინათელებსა და ექიმებს, ათავისუფლებს ელის და ჯექსონში დაბრუნებისას ეუბნება მას ტყუილს.</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (part === 'leftbehind') {
+                container.innerHTML = `
+                    <div class="tlou-card p-6 sm:p-8 rounded-2xl space-y-6">
+                        <h3 class="text-2xl font-bold text-amber-400 font-heading border-b border-tlou-border pb-3">Left Behind (DLC)</h3>
+                        <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">
+                            ისტორია ვითარდება ორ პარალელურ დროში: აწმყოში, სადაც ელი ეძებს სამედიცინო ნივთებს დაჭრილი ჯოელისთვის მიტოვებულ სავაჭრო ცენტრში, და წარსულში, სადაც იგი ატარებს ბოლო დაუვიწყარ ღამეს თავის საუკეთესო მეგობარ რაილისთან ერთად. სწორედ ამ ღამეს აღმოაჩენს ელი თავის იმუნიტეტს.
+                        </p>
+                    </div>
+                `;
+            } else if (part === 'part2') {
+                container.innerHTML = `
+                    <div class="tlou-card p-6 sm:p-8 rounded-2xl space-y-6">
+                        <h3 class="text-2xl font-bold text-amber-400 font-heading border-b border-tlou-border pb-3">The Last of Us Part II (2038)</h3>
+                        <div class="space-y-6 text-xs sm:text-sm text-gray-300">
+                            <div>
+                                <h4 class="text-sm font-bold text-amber-400 mb-1">ჯექსონის ტრაგედია</h4>
+                                <p class="leading-relaxed">5 წლის შემდეგ ჯექსონში მშვიდობიანი ცხოვრებისას, ები (მოკლული ექიმის ქალიშვილი) პოულობს ჯოელს და სასტიკად კლავს მას ელის თვალწინ. ელი იფიცებს შურისძიებას.</p>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-amber-400 mb-1">სიეტლი: ელის 3 დღე</h4>
+                                <p class="leading-relaxed">ელი და დინა მიდიან სიეტლში WLF-ის წევრების საპოვნელად. ელი სათითაოდ კლავს ების მეგობრებს, თუმცა იძირება სიძულვილისა და ტრავმის ბნელ მორევში.</p>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-amber-400 mb-1">სიეტლი: ების 3 დღე</h4>
+                                <p class="leading-relaxed">თამაშის პერსპექტივა გადადის ებიზე, სადაც ვხედავთ მის ბრძოლას სერაფიტებთან, მის ურთიერთობას ლევთან და მცდელობას გახდეს უკეთესი ადამიანი.</p>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-amber-400 mb-1">სანტა ბარბარა & ეპილოგი</h4>
+                                <p class="leading-relaxed">საბოლოო შეტაკება სანტა ბარბარაში რეტლერების ტყვეობიდან დახსნილ ებისთან. ელი ბოლო მომენტში აცნობიერებს შურისძიების ამაოებას, ინდობს ებს და ბრუნდება ცარიელ სახლში, სადაც ტოვებს ჯოელის გიტარას.</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        /* ================= QUIZ LOGIC ================= */
+        let currentQuestion = 0;
+        let quizScore = 0;
+
+        function loadQuestion() {
+            const q = quizQuestions[currentQuestion];
+            document.getElementById('quizQuestionNum').innerText = `კითხვა ${currentQuestion + 1} / ${quizQuestions.length}`;
+            document.getElementById('quizQuestionText').innerText = q.q;
+            document.getElementById('quizFeedback').className = 'hidden';
+            document.getElementById('nextQuizBtn').className = 'hidden';
+
+            const opts = document.getElementById('quizOptions');
+            opts.innerHTML = '';
+
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'w-full text-left p-3.5 rounded-xl border border-tlou-border bg-tlou-bg hover:border-amber-500 text-xs font-semibold transition text-gray-200';
+                btn.innerText = opt;
+                btn.onclick = () => selectAnswer(idx);
+                opts.appendChild(btn);
+            });
+        }
+
+        function selectAnswer(selected) {
+            const q = quizQuestions[currentQuestion];
+            const opts = document.getElementById('quizOptions').children;
+            const feedback = document.getElementById('quizFeedback');
+
+            for (let i = 0; i < opts.length; i++) {
+                opts[i].disabled = true;
+                if (i === q.correct) {
+                    opts[i].className = 'w-full text-left p-3.5 rounded-xl border border-lime-500 bg-lime-950/60 text-lime-300 text-xs font-semibold';
+                } else if (i === selected) {
+                    opts[i].className = 'w-full text-left p-3.5 rounded-xl border border-red-500 bg-red-950/60 text-red-300 text-xs font-semibold';
+                }
+            }
+
+            if (selected === q.correct) {
+                quizScore++;
+                document.getElementById('quizScoreText').innerText = `ქულა: ${quizScore}`;
+                feedback.className = 'p-4 rounded-xl border border-lime-500/50 bg-lime-950/40 text-lime-300 text-xs font-medium block';
+                feedback.innerHTML = `<i class="fa-solid fa-circle-check mr-2"></i> სწორია! ${q.info}`;
+            } else {
+                feedback.className = 'p-4 rounded-xl border border-red-500/50 bg-red-950/40 text-red-300 text-xs font-medium block';
+                feedback.innerHTML = `<i class="fa-solid fa-circle-xmark mr-2"></i> არასწორია. ${q.info}`;
+            }
+
+            document.getElementById('nextQuizBtn').className = 'w-full py-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-black font-bold uppercase tracking-wider transition shadow-lg mt-4 text-xs';
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < quizQuestions.length) {
+                loadQuestion();
+            } else {
+                showQuizResults();
+            }
+        }
+
+        function showQuizResults() {
+            document.getElementById('quizContainer').classList.add('hidden');
+            const resultBox = document.getElementById('quizResult');
+            resultBox.classList.remove('hidden');
+
+            document.getElementById('quizFinalScore').innerText = `თქვენ დააგროვეთ ${quizScore} / ${quizQuestions.length} ქულა!`;
+
+            const badge = document.getElementById('quizBadge');
+            if (quizScore === 5) {
+                badge.innerText = '🏆 ტიტული: სერტიფიცირებული გადარჩენილი (Master Survivor) — შენ გადარჩებოდი წლობით!';
+            } else if (quizScore >= 3) {
+                badge.innerText = '🛡 ტიტული: ჯექსონის მცველი (Jackson Guard) — ძლიერი საბრძოლო ინსტინქტები.';
+            } else if (quizScore >= 1) {
+                badge.innerText = '⚠️ ტიტული: შემგროვებელი (Scavenger) — გადარჩენის შანსი: 6 თვე.';
+            } else {
+                badge.innerText = '☣️ ტიტული: პირველივე დღეს ინფიცირებული (Runner Stage 1)';
+            }
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            quizScore = 0;
+            document.getElementById('quizScoreText').innerText = `ქულა: 0`;
+            document.getElementById('quizResult').classList.add('hidden');
+            document.getElementById('quizContainer').classList.remove('hidden');
+            loadQuestion();
+        }
+
+        /* ================= SEARCH & TABS ================= */
+        function handleSearch(query) {
+            const results = document.getElementById('searchResults');
+            if (!query.trim()) {
+                results.classList.add('hidden');
+                return;
+            }
+
+            const q = query.toLowerCase();
+            const charMatches = charactersData.filter(c => c.name.toLowerCase().includes(q) || c.englishName.toLowerCase().includes(q));
+            const infectedMatches = infectedData.filter(i => i.name.toLowerCase().includes(q));
+
+            if (charMatches.length === 0 && infectedMatches.length === 0) {
+                results.innerHTML = `<div class="p-3 text-xs text-gray-400 text-center">შედეგები ვერ მოიძებნა</div>`;
+            } else {
+                let html = '';
+                charMatches.forEach(c => {
+                    html += `
+                        <div onclick="openCharacterModal('${c.id}'); hideSearch();" class="p-2.5 hover:bg-amber-500/20 rounded-lg cursor-pointer flex items-center justify-between text-xs transition">
+                            <span class="font-bold text-amber-400"><i class="fa-solid ${c.icon} mr-2"></i>${c.name}</span>
+                            <span class="text-[10px] text-gray-400">პერსონაჟი</span>
+                        </div>
+                    `;
+                });
+                infectedMatches.forEach(i => {
+                    html += `
+                        <div onclick="switchTab('infected'); hideSearch();" class="p-2.5 hover:bg-lime-500/20 rounded-lg cursor-pointer flex items-center justify-between text-xs transition">
+                            <span class="font-bold text-lime-400"><i class="fa-solid fa-biohazard mr-2"></i>${i.name}</span>
+                            <span class="text-[10px] text-gray-400">ინფიცირებული</span>
+                        </div>
+                    `;
+                });
+                results.innerHTML = html;
+            }
+            results.classList.remove('hidden');
+        }
+
+        function hideSearch() {
+            document.getElementById('searchResults').classList.add('hidden');
+        }
+
+        function switchTab(tabId) {
+            ['home', 'characters', 'story', 'infected', 'factions', 'quiz'].forEach(id => {
+                const sec = document.getElementById(`section-${id}`);
+                const btn = document.getElementById(`tab-${id}`);
+                if (id === tabId) {
+                    sec.classList.remove('hidden');
+                    btn.classList.add('active');
+                } else {
+                    sec.classList.add('hidden');
+                    btn.classList.remove('active');
+                }
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function filterCharacters(faction) {
+            document.querySelectorAll('#factionFilterContainer button').forEach(b => {
+                b.className = 'filter-btn px-3 py-1.5 rounded-xl text-xs font-bold border border-tlou-border bg-tlou-card text-gray-300 hover:border-amber-500';
+            });
+            event.target.className = 'filter-btn active-filter px-3 py-1.5 rounded-xl text-xs font-bold border border-amber-500 bg-amber-500/20 text-amber-400';
+            renderCharacters(faction);
+        }
+
+        /* ================= INITIALIZATION ================= */
+        window.onload = function() {
+            renderSpotlight();
+            renderCharacters();
+            renderInfected();
+            renderFactions();
+            showStoryPart('part1');
+            loadQuestion();
+        };
+    </script>
+</body>
+</html>
